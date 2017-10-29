@@ -1,4 +1,4 @@
 # logisticregression
-epoch = 6000
+epoch = 10000
 alpha = 1e-1
-accuracy = 76.09
+accuracy = 96.95
