@@ -7,7 +7,7 @@ from utility import * #custom methods for data cleaning
 FILE_NAME_TRAIN = 'train.csv' #replace this file name with the train file
 FILE_NAME_TEST = 'test.csv' #replace
 ALPHA = 1e-1
-EPOCHS = 6000#keep this greater than or equl to 5000 strictly otherwise you will get an error
+EPOCHS = 10000#keep this greater than or equl to 5000 strictly otherwise you will get an error
 MODEL_FILE = 'models/model1'
 t1 = True
 t = False
@@ -83,7 +83,7 @@ def main():
         model = train(theta, X, y, model)
         with open(MODEL_FILE,'w') as f:
             f.write(json.dumps(model))
-	accuracy(X,y,model,FILE_NAME_TRAIN)
+	accuracy(X,y,model)
     else:
         model = {}
         with open(MODEL_FILE,'r') as f:
@@ -91,7 +91,7 @@ def main():
             X_df, y_df = loadData(FILE_NAME_TEST)
             X,y = normalizeTestData(X_df, y_df, model)
             X = appendIntercept(X)
-            accuracy(X,y,model,FILE_NAME_TEST)
+            accuracy(X,y,model)
 
 if __name__ == '__main__':
     main()

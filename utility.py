@@ -19,7 +19,7 @@ def loadData(file_name):
     df = pd.read_csv(file_name)
     logging.info("Number of data points in the data set "+str(len(df)))
     y_df = df['output']
-    keys = ['overall_rating', 'bought_at', 'months_used', 'issues_rating']
+    keys = ['model_rating','company_rating', 'bought_at', 'months_used', 'issues_rating', 'resale_value']
     X_df = df.get(keys)
     return X_df, y_df
 
@@ -44,15 +44,12 @@ def normalizeTestData(X_df, y_df, model):
     return X, y_df
 
 
-def accuracy(X,y,model, fi):
+def accuracy(X,y,model):
 
     y_predicted = predict(X,np.array(model['theta']))
-    print y_predicted
     y_predicted =  np.round(y_predicted)
-    print np.square(y_predicted-y)
-    acc = (np.sum(np.square(y_predicted-y))/len(X))*100
-
-    print "accuracy associated with this model is "+str(100-acc)
+    acc = np.sum(np.square(y_predicted==y))*100.0/len(y)
+    print "accuracy associated with this model is "+str(acc)
 
 def predict(X,theta):
     a= (1/(1+np.exp(-X.dot(theta))))
